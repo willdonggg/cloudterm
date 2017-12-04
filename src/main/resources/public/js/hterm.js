@@ -11571,6 +11571,18 @@ hterm.Terminal.prototype.decorate = function (div) {
         '  display: inline-block;' +
         '  text-align: center;' +
         '  width: ' + this.scrollPort_.characterSize.width * 2 + 'px;' +
+            '}' +
+            '::-webkit-scrollbar {' +
+            '    width: 8px;' +
+            '    background: transparent;' +
+            '}' +
+            '::-webkit-scrollbar-thumb {' +
+            '    border: 1px #808080 solid;' +
+            '    border-radius: 10px;' +
+            '    background: #999;' +
+            '}' +
+            '::-webkit-scrollbar-thumb:hover {' +
+            '    background: #7d7d7d;' +
         '}');
     this.document_.head.appendChild(style);
 
@@ -13060,7 +13072,7 @@ hterm.Terminal.prototype.copySelectionToClipboard = function () {
 };
 
 hterm.Terminal.prototype.overlaySize = function () {
-    this.showOverlay(this.screenSize.width + 'x' + this.screenSize.height);
+    // this.showOverlay(this.screenSize.width + 'x' + this.screenSize.height);
 };
 
 /**

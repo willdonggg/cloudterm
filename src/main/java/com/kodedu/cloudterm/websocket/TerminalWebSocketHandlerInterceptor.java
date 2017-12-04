@@ -1,0 +1,38 @@
+package com.kodedu.cloudterm.websocket;
+
+import org.springframework.http.server.ServerHttpRequest;
+import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.http.server.ServletServerHttpRequest;
+import org.springframework.util.StringUtils;
+import org.springframework.web.socket.WebSocketHandler;
+import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
+
+import java.util.Map;
+
+/**
+ * WebSocketInterpreter
+ *
+ * @author dongshuwang@codeus.com.cn
+ * @date 2017/11/24
+ */
+public class TerminalWebSocketHandlerInterceptor extends HttpSessionHandshakeInterceptor {
+    @Override
+    public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
+                                   Map<String, Object> attributes) throws Exception {
+        if (request instanceof ServletServerHttpRequest) {
+            ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
+            String userTopicId = servletRequest.getServletRequest().getParameter("wsut");
+            if (!StringUtils.isEmpty(userTopicId)) {
+                attributes.put("userTopicId", userTopicId);
+            }
+        }
+        return super.beforeHandshake(request, response, wsHandler, attributes);
+
+    }
+
+    @Override
+    public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
+                               Exception ex) {
+        super.afterHandshake(request, response, wsHandler, ex);
+    }
+}

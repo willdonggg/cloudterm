@@ -3,7 +3,7 @@ package com.kodedu.cloudterm.websocket;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kodedu.cloudterm.service.TerminalService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -15,24 +15,21 @@ import java.util.Map;
 
 public class TerminalSocket extends TextWebSocketHandler {
 
-    private final TerminalService terminalService;
-
-    @Autowired
-    public TerminalSocket(TerminalService terminalService) {
-        this.terminalService = terminalService;
-    }
+    private static final Map<String, TerminalService> terminalServices = new HashMap<>();
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        terminalService.setWebSocketSession(session);
+        TerminalService service = new TerminalService(session);
+        terminalServices.put((String) session.getAttributes().get("userTopicId"), service);
         super.afterConnectionEstablished(session);
     }
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+        TerminalService terminalService = terminalServices.get(session.getAttributes().get("userTopicId"));
         Map<String, String> messageMap = getMessageMap(message);
 
-        if (messageMap.containsKey("type")) {
+        if (terminalService != null && messageMap.containsKey("type")) {
             String type = messageMap.get("type");
 
             switch (type) {
@@ -40,7 +37,7 @@ public class TerminalSocket extends TextWebSocketHandler {
                     terminalService.onTerminalInit();
                     break;
                 case "TERMINAL_READY":
-                    terminalService.onTerminalReady();
+                    terminalService.onTerminalReady(session.getId());
                     break;
                 case "TERMINAL_COMMAND":
                     terminalService.onCommand(messageMap.get("command"));
@@ -79,5 +76,9 @@ public class TerminalSocket extends TextWebSocketHandler {
     @Override
     public boolean supportsPartialMessages() {
         return super.supportsPartialMessages();
+    }
+
+    public static TerminalService getTerminal(String id) {
+        return terminalServices.get(id);
     }
 }

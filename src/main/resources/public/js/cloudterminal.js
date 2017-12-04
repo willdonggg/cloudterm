@@ -41,7 +41,8 @@ t.onTerminalReady = function () {
 
 };
 
-let ws = new WebSocket("ws://" + location.host + "/terminal");
+let wsut = document.getElementById('wsut').value;
+let ws = new WebSocket("ws://" + location.host + "/terminal/ws?wsut=" + wsut);
 
 ws.onopen = () => {
     t.decorate(document.querySelector('#terminal'));
@@ -60,6 +61,9 @@ ws.onmessage = (e) => {
     let data = JSON.parse(e.data);
     switch (data.type) {
         case "TERMINAL_PRINT":
+            if (data.refresh === 'true') {
+                t.clearHome();
+            }
             t.io.print(data.text);
     }
 }
@@ -87,6 +91,6 @@ let app = {
         }));
     },
     onTerminalReady() {
-        ws.send(action("TERMINAL_READY"));
+        // ws.send(action("TERMINAL_READY"));
     }
 };
