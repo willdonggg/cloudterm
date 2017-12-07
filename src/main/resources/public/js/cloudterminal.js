@@ -1,24 +1,24 @@
 hterm.defaultStorage = new lib.Storage.Memory();
 
-var t = new hterm.Terminal("cloudterm");
+var t = new hterm.Terminal("codeus");
 
 t.getPrefs().set("send-encoding", "utf-8");
 t.getPrefs().set("receive-encoding", "utf-8");
 
 // t.getPrefs().set("use-default-window-copy", true);
-t.getPrefs().set("clear-selection-after-copy", true);
-t.getPrefs().set("copy-on-select", true);
-t.getPrefs().set("ctrl-c-copy", true);
-t.getPrefs().set("ctrl-v-paste", true);
+// t.getPrefs().set("clear-selection-after-copy", true);
+// t.getPrefs().set("copy-on-select", true);
+// t.getPrefs().set("ctrl-c-copy", true);
+// t.getPrefs().set("ctrl-v-paste", true);
 // t.getPrefs().set("cursor-color", "black");
 // t.getPrefs().set("background-color", "white");
 // t.getPrefs().set("font-size", 12);
 // t.getPrefs().set("foreground-color", "black");
-// t.getPrefs().set("cursor-blink", false);
+t.getPrefs().set("cursor-blink", true);
 // t.getPrefs().set("scrollbar-visible", true);
 // t.getPrefs().set("scroll-wheel-move-multiplier", 0.1);
 // t.getPrefs().set("user-css", "/afx/resource/?p=css/hterm.css");
-t.getPrefs().set("enable-clipboard-notice", true);
+// t.getPrefs().set("enable-clipboard-notice", true);
 
 t.onTerminalReady = function () {
 

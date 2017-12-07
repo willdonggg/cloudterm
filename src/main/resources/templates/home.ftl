@@ -9,7 +9,7 @@
     <title>Cloud Terminal</title>
 </head>
 <body>
-<div id="terminal" style="position: absolute; width: 473px; height: 180px;"></div>
+<div id="terminal" style="position: absolute;"></div>
 <input type="hidden" id="wsut" value="${wsut}">
 <script src="js/hterm.js"></script>
 <script src="js/cloudterminal.js"></script>
