@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class HomeController {
 
     @RequestMapping("/terminal")
+
     public String home(String wsut, Model model) {
         model.addAttribute("wsut", wsut);
         return "home";

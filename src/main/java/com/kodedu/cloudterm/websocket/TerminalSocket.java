@@ -3,7 +3,6 @@ package com.kodedu.cloudterm.websocket;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kodedu.cloudterm.service.TerminalService;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -37,7 +36,7 @@ public class TerminalSocket extends TextWebSocketHandler {
                     terminalService.onTerminalInit();
                     break;
                 case "TERMINAL_READY":
-                    terminalService.onTerminalReady(session.getId());
+                    terminalService.onTerminalReady(null);
                     break;
                 case "TERMINAL_COMMAND":
                     terminalService.onCommand(messageMap.get("command"));
