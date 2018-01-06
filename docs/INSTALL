@@ -1,4 +1,10 @@
+# 安装依赖
 mvn install:install-file -DgroupId=com.sun -DartifactId=jna -Dversion=3.0.9 -Dpackaging=jar -Dfile=/lib/jna.jar
 mvn install:install-file -DgroupId=com.sun.jna -DartifactId=jna-platform -Dversion=1.0.0 -Dpackaging=jar -Dfile=/lib/jna-platform.jar
 mvn install:install-file -DgroupId=purejavacomm -DartifactId=purejavacomm -Dversion=0.0.17 -Dpackaging=jar -Dfile=/lib/purejavacomm-0.0.17.jar
 mvn install:install-file -DgroupId=com.asciidocfx.pty4j -DartifactId=pty4j -Dversion=0.7.2 -Dpackaging=jar -Dfile=/lib/pty4j-0.7.2.jar
+
+# .terminalfx拷贝到用户根目录, 并设置环境变量
+PTY_LIB_FOLDER=~/.terminalfx/libpty
+export PTY_LIB_FOLDER
+

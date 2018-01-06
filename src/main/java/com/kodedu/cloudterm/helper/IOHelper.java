@@ -55,12 +55,12 @@ public class IOHelper {
 
         final Set<String> nativeFiles = new HashSet<>();
 
-        List<String> freebsd = Arrays.asList("libpty/freebsd/x86/libpty.so", "libpty/freebsd/x86_64/libpty.so");
-        List<String> linux = Arrays.asList("libpty/linux/x86/libpty.so", "libpty/linux/x86_64/libpty.so");
-        List<String> macosx = Arrays.asList("libpty/macosx/x86/libpty.dylib", "libpty/macosx/x86_64/libpty.dylib");
-        List<String> win_x86 = Arrays.asList("libpty/win/x86/winpty.dll", "libpty/win/x86/winpty-agent.exe");
-        List<String> win_x86_64 = Arrays.asList("libpty/win/x86_64/winpty.dll", "libpty/win/x86_64/winpty-agent.exe", "libpty/win/x86_64/cyglaunch.exe");
-        List<String> win_xp = Arrays.asList("libpty/win/xp/winpty.dll", "libpty/win/xp/winpty-agent.exe");
+        List<String> freebsd = Arrays.asList(".terminalfx/libpty/freebsd/x86/libpty.so", ".terminalfx/libpty/freebsd/x86_64/libpty.so");
+        List<String> linux = Arrays.asList(".terminalfx/libpty/linux/x86/libpty.so", ".terminalfx/libpty/linux/x86_64/libpty.so");
+        List<String> macosx = Arrays.asList(".terminalfx/libpty/macosx/x86/libpty.dylib", ".terminalfx/libpty/macosx/x86_64/libpty.dylib");
+        List<String> win_x86 = Arrays.asList(".terminalfx/libpty/win/x86/winpty.dll", ".terminalfx/libpty/win/x86/winpty-agent.exe");
+        List<String> win_x86_64 = Arrays.asList(".terminalfx/libpty/win/x86_64/winpty.dll", ".terminalfx/libpty/win/x86_64/winpty-agent.exe", ".terminalfx/libpty/win/x86_64/cyglaunch.exe");
+        List<String> win_xp = Arrays.asList(".terminalfx/libpty/win/xp/winpty.dll", ".terminalfx/libpty/win/xp/winpty-agent.exe");
 
         nativeFiles.addAll(freebsd);
         nativeFiles.addAll(linux);

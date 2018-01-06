@@ -22,7 +22,6 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
@@ -97,8 +96,9 @@ public class TerminalService {
 //        }
 
         envs.put("TERM", "xterm");
+        envs.put("PTY_LIB_FOLDER", dataDir.resolve(".terminalfx/libpty").toString());
 
-        System.setProperty("PTY_LIB_FOLDER", dataDir.resolve("libpty").toString());
+        System.setProperty("PTY_LIB_FOLDER", dataDir.resolve(".terminalfx/libpty").toString());
 
         this.process = PtyProcess.exec(termCommand, envs, userHome);
 
