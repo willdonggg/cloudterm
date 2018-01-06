@@ -23,7 +23,8 @@ public class HomeController {
         TerminalService service = TerminalSocket.getTerminal(sessionId);
         if (service != null) {
             service.onTerminalReady(command);
+//            return service.popResult();
         }
-        return "SUCCESS";
+        return "FAILED";
     }
 }

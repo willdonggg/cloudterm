@@ -22,7 +22,9 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 public class TerminalService {
 
@@ -40,6 +42,8 @@ public class TerminalService {
     private WebSocketSession session;
 
     private LinkedBlockingQueue<String> commandQueue = new LinkedBlockingQueue<>();
+
+    private LinkedBlockingQueue<String> resultQueue = new LinkedBlockingQueue<>();
 
     public TerminalService(WebSocketSession session) {
         this.session = session;
@@ -113,6 +117,20 @@ public class TerminalService {
 
         process.waitFor();
 
+    }
+
+    public String popResult() {
+        StringBuilder lines = new StringBuilder();
+        int count = 0;
+        while (lines.indexOf("代码执行完毕...") < 0 && count < 6) {
+            try {
+                lines.append(resultQueue.poll(500, TimeUnit.MILLISECONDS));
+            } catch (InterruptedException e) {
+                count++;
+                e.printStackTrace();
+            }
+        }
+        return lines.toString();
     }
 
     public void print(String text) throws IOException {
